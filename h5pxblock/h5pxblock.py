@@ -66,6 +66,7 @@ class SubmissionStatus(Enum):
 
 @XBlock.wants('user')
 @XBlock.wants('i18n')
+@XBlock.supports("multi_device")
 class H5PPlayerXBlock(XBlock, CompletableXBlockMixin):
     """
     H5P XBlock provides ability to host and play h5p content inside open edX course.
