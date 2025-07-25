@@ -1,0 +1,22 @@
+{% load i18n %}
+
+{% if h5pblock.h5p_content_json_path %}
+<div class="h5pxblock_block">
+    {% if h5pblock.has_score %}
+    <p> ({{ h5pblock.weighted_score}}/{{ h5pblock.points | floatformat:1 }} {% trans "points" %}) {% trans h5pblock.submission_status %}</p>
+    {% endif %}
+    <div class="d-flex justify-content-center spinner-container">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">{% trans "Loading..." %}</span>
+        </div>
+    </div>
+    <div id='h5p-{{h5pblock.player_id}}' class="h5p-player"></div>
+    {% if h5pblock.is_past_due %}
+    <div class='h5p-warning'>
+        <h3>{% trans "The due date for this subsection has passed. Your response will be recorded, but not graded." %}<h3>
+    </div>
+    {% endif %}
+</div>
+{% else %}
+<h2>{% trans "No content. Please upload H5P content." %}<h2>
+{% endif %}

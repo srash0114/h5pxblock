@@ -1,0 +1,148 @@
+{% load i18n %}
+<div class="wrapper-comp-settings is-active editor-with-buttons" id="settings-tab">
+  <ul class="list-input settings-list">
+    <li class="field comp-setting-entry is-set">
+      <div class="wrapper-comp-setting">
+        <label class="label setting-label" for="xb_display_name">{% trans field_display_name.display_name %}</label>
+        <input class="input setting-input" name="xb_display_name" id="xb_display_name" value="{{ h5p_xblock.display_name }}" type="text" />
+      </div>
+      <span class="tip setting-help">{% trans field_display_name.help %}</span>
+    </li>
+    <li class="field comp-setting-entry is-set">
+      <div class="wrapper-comp-setting">
+        <label class="label setting-label" for="xb_h5p_file">{% trans h5p_content_json_path.display_name %}</label>
+        <input class="input setting-input" name="xb_h5p_file" id="xb_h5p_file" type="file" accept="application/zip,.h5p" />
+      </div>
+      <div class="progress-bar-container">
+        <div class="xb-h5p-progress-bar">
+            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+      {% if h5p_xblock.h5p_content_meta %}
+      <div class="tip setting-help "><span><b>{% trans "Currently:" %}</b> {{ h5p_xblock.h5p_content_meta.name }}</span>&nbsp;<span><b>{% trans "Upload time:" %}</b> {{ h5p_xblock.h5p_content_meta.upload_time }}</span></div>
+      {% endif %}
+
+      <div class="astrodivider"><div class="astrodividermask"></div><span><i>OR</i></span></div>
+      <div class="wrapper-comp-setting">
+        <label class="label setting-label" for="xb_display_name">{% trans 'Reuse Existing H5P Content' %}</label>
+        <input class="input setting-input text-to-copy" name="xb_existing_content_path" id="xb_existing_content_path" value="{{ h5p_xblock.h5p_content_json_path|default_if_none:'' }}" type="text" />
+        <i class="fa fa-copy copy-text"></i>
+      </div>
+      <div class="tip setting-help">{% trans 'Enter path of existing content or copy path to reuse this content in another block' %}</div>
+    </li>
+    <li class="field comp-setting-entry is-set">
+      <div class="wrapper-comp-setting">
+        <label class="label setting-label" for="xb_field_edit_show_frame">{% trans show_frame.display_name %}</label>
+        <select class="field-data-control"
+                id="xb_field_edit_show_frame"
+              >
+                <option value="1" {% if h5p_xblock.show_frame %}selected{% endif %}>
+                  {% trans "True" %}{% if show_frame.default %}&nbsp;&nbsp;&nbsp;&nbsp;{% trans "(Default)" %}{% endif %}
+                </option>
+                <option value="0" {% if not h5p_xblock.show_frame %}selected{% endif %}>
+                  {% trans "False" %}{% if not show_frame.default %}&nbsp;&nbsp;&nbsp;&nbsp;{% trans "(Default)" %}{% endif %}
+                </option>
+        </select>
+      </div>
+      <span class="tip setting-help">{% trans show_frame.help %}</span>
+    </li>
+
+    <li class="field comp-setting-entry is-set">
+        <div class="wrapper-comp-setting">
+          <label class="label setting-label" for="xb_field_edit_show_copyright">{% trans show_copyright.display_name %}</label>
+          <select class="field-data-control"
+                  id="xb_field_edit_show_copyright"
+                >
+                  <option value="1" {% if h5p_xblock.show_copyright %}selected{% endif %}>
+                    {% trans "True" %}{% if show_copyright.default %}&nbsp;&nbsp;&nbsp;&nbsp;{% trans "(Default)" %}{% endif %}
+                  </option>
+                  <option value="0" {% if not h5p_xblock.show_copyright %}selected{% endif %}>
+                    {% trans "False" %}{% if not show_copyright.default %}&nbsp;&nbsp;&nbsp;&nbsp;{% trans "(Default)" %}{% endif %}
+                  </option>
+          </select>
+        </div>
+        <span class="tip setting-help">{% trans show_copyright.help %}</span>
+      </li>
+      <li class="field comp-setting-entry is-set">
+        <div class="wrapper-comp-setting">
+          <label class="label setting-label" for="xb_field_edit_show_h5p">{% trans show_h5p.display_name %}</label>
+          <select class="field-data-control"
+                  id="xb_field_edit_show_h5p"
+                >
+                  <option value="1" {% if h5p_xblock.show_h5p %}selected{% endif %}>
+                    {% trans "True" %}{% if show_h5p.default %}&nbsp;&nbsp;&nbsp;&nbsp;{% trans "(Default)" %}{% endif %}
+                  </option>
+                  <option value="0" {% if not h5p_xblock.show_h5p %}selected{% endif %}>
+                    {% trans "False" %}{% if not show_h5p.default %}&nbsp;&nbsp;&nbsp;&nbsp;{% trans "(Default)" %}{% endif %}
+                  </option>
+          </select>
+        </div>
+        <span class="tip setting-help">{% trans show_h5p.help %}</span>
+      </li>
+      <li class="field comp-setting-entry is-set">
+        <div class="wrapper-comp-setting">
+          <label class="label setting-label" for="xb_field_edit_show_fullscreen">{% trans show_fullscreen.display_name %}</label>
+          <select class="field-data-control"
+                  id="xb_field_edit_show_fullscreen"
+                >
+                  <option value="1" {% if h5p_xblock.show_fullscreen %}selected{% endif %}>
+                    {% trans "True" %}{% if show_fullscreen.default %}&nbsp;&nbsp;&nbsp;&nbsp;{% trans "(Default)" %}{% endif %}
+                  </option>
+                  <option value="0" {% if not h5p_xblock.show_fullscreen %}selected{% endif %}>
+                    {% trans "False" %}{% if not show_fullscreen.default %}&nbsp;&nbsp;&nbsp;&nbsp;{% trans "(Default)" %}{% endif %}
+                  </option>
+          </select>
+        </div>
+        <span class="tip setting-help">{% trans show_fullscreen.help %}</span>
+      </li>
+      <li class="field comp-setting-entry is-set">
+        <div class="wrapper-comp-setting">
+          <label class="label setting-label" for="xb_field_edit_is_scorable">{% trans is_scorable.display_name %}</label>
+          <select class="field-data-control"
+                  id="xb_field_edit_is_scorable"
+                >
+                  <option value="1" {% if h5p_xblock.has_score %}selected{% endif %}>
+                    {% trans "True" %}{% if is_scorable.default %}&nbsp;&nbsp;&nbsp;&nbsp;{% trans "(Default)" %}{% endif %}
+                  </option>
+                  <option value="0" {% if not h5p_xblock.has_score %}selected{% endif %}>
+                    {% trans "False" %}{% if not is_scorable.default %}&nbsp;&nbsp;&nbsp;&nbsp;{% trans "(Default)" %}{% endif %}
+                  </option>
+          </select>
+        </div>
+        <span class="tip setting-help">{% trans is_scorable.help %}</span>
+      </li>
+      <li class="field comp-setting-entry is-set scorable">
+        <div class="wrapper-comp-setting">
+          <label class="label setting-label" for="xb_weight">{% trans weight.display_name %}</label>
+          <input class="input setting-input" name="xb_weight" id="xb_weight" value="{{ h5p_xblock.weight }}" type="text" />
+        </div>
+        <span class="tip setting-help">{% trans weight.help %}</span>
+      </li>
+      <li class="field comp-setting-entry is-set scorable">
+        <div class="wrapper-comp-setting">
+          <label class="label setting-label" for="xb_points">{% trans points.display_name %}</label>
+          <input class="input setting-input" name="xb_points" id="xb_points" value="{{ h5p_xblock.points }}" type="text" />
+        </div>
+        <span class="tip setting-help">{% trans points.help %}</span>
+      </li>
+      <li class="field comp-setting-entry is-set">
+        <div class="wrapper-comp-setting">
+          <label class="label setting-label" for="xb_field_edit_save_freq">{% trans save_freq.display_name %}</label>
+          <input class="input setting-input" name="xb_field_edit_save_freq" id="xb_field_edit_save_freq" value="{{ h5p_xblock.save_freq }}" type="text" />
+        </div>
+        <span class="tip setting-help">{% trans save_freq.help %}</span>
+      </li>
+
+
+  </ul>
+  <div class="xblock-actions">
+    <ul>
+      <li class="action-item">
+        <a href="#" class="button action-primary save-button">{% trans "Save" %}</a>
+      </li>
+      <li class="action-item">
+        <a href="#" class="button cancel-button">{% trans "Cancel" %}</a>
+      </li>
+    </ul>
+  </div>
+</div>
