@@ -271,57 +271,39 @@ class H5PPlayerXBlock(XBlock, CompletableXBlockMixin):
         )
         return frag
 
-def student_view(self, context=None):
-    """
-    Render student view — use iframe for iOS, full JS version for others
-    """
-    user_agent = self.runtime.request.headers.get("User-Agent", "")
-    is_ios = "iPhone" in user_agent or "iPad" in user_agent
-
-    if is_ios:
-        h5p_url = self.h5p_content_json_path
-        iframe_html = f"""
-        <div class="h5p-iframe-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-            <iframe src="{h5p_url}/index.html"
-                    allowfullscreen
-                    webkitallowfullscreen
-                    mozallowfullscreen
-                    style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border: none;">
-            </iframe>
-        </div>
+    def student_view(self, context=None):
         """
-        return Fragment(iframe_html)
-
-    # -------- Nếu không phải iOS: render phiên bản đầy đủ như cũ --------
-    context = {
-        "h5pblock": self,
-    }
-    template = self.render_template("static/html/h5pxblock.html", context)
-    frag = Fragment(template)
-    frag.add_css(self.resource_string("static/css/student_view.css"))
-    frag.add_javascript(self.resource_string("static/js/src/installRequired.js"))
-    frag.add_javascript(self.resource_string("static/js/src/h5pxblock.js"))
-    user_service = self.runtime.service(self, 'user')
-    user = user_service.get_current_user()
-    save_freq = self.save_freq if self.save_freq > 0 else False
-    frag.initialize_js(
-        'H5PPlayerXBlock',
-        json_args={
-            "player_id": self.player_id,
-            "frame": self.show_frame,
-            "copyright": self.show_copyright,
-            "icon": self.show_h5p,
-            "fullScreen": self.show_fullscreen,
-            "saveFreq": save_freq,
-            "user_full_name": user.full_name,
-            "user_email": user.emails[0],
-            "userData": self.interaction_data,
-            "customJsPath": self.runtime.local_resource_url(self, "public/js/h5pcustom.js"),
-            "h5pJsonPath": self.h5p_content_json_path
+        The primary view of the H5PPlayerXBlock, shown to students
+        when viewing courses.
+        """
+        context = {
+            "h5pblock": self,
         }
-    )
-    return frag
-
+        template = self.render_template("static/html/h5pxblock.html", context)
+        frag = Fragment(template)
+        frag.add_css(self.resource_string("static/css/student_view.css"))
+        frag.add_javascript(self.resource_string("static/js/src/installRequired.js"))
+        frag.add_javascript(self.resource_string("static/js/src/h5pxblock.js"))
+        user_service = self.runtime.service(self, 'user')
+        user = user_service.get_current_user()
+        save_freq = self.save_freq if self.save_freq > 0 else False
+        frag.initialize_js(
+            'H5PPlayerXBlock',
+            json_args={
+                "player_id": self.player_id,
+                "frame": self.show_frame,
+                "copyright": self.show_copyright,
+                "icon": self.show_h5p,
+                "fullScreen": self.show_fullscreen,
+                "saveFreq": save_freq,
+                "user_full_name": user.full_name,
+                "user_email": user.emails[0],
+                "userData": self.interaction_data,
+                "customJsPath": self.runtime.local_resource_url(self, "public/js/h5pcustom.js"),
+                "h5pJsonPath": self.h5p_content_json_path
+            }
+        )
+        return frag
 
     @XBlock.handler
     def user_interaction_data(self, request, suffix=''):
