@@ -10,9 +10,8 @@
             <span class="sr-only">{% trans "Loading..." %}</span>
         </div>
     </div>
-    <!-- <div id='h5p-{{h5pblock.player_id}}' class="h5p-player"></div> -->
-         <div class="video-container">
-        <iframe src="{{ h5pblock.h5p_content_json_path }}" 
+    <div id="h5p-{{ h5pblock.player_id }}" class="h5p-player">
+        <iframe src="{{ h5pblock.h5p_content_json_path }}/embed" 
                 width="100%" 
                 height="600" 
                 frameborder="0" 
