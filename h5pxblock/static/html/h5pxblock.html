@@ -10,12 +10,15 @@
             <span class="sr-only">{% trans "Loading..." %}</span>
         </div>
     </div>
-    <div id="h5p-{{ h5pblock.player_id }}" class="h5p-player">
-        <iframe src="{{ h5pblock.h5p_content_json_path }}/embed" 
-                width="100%" 
-                height="600" 
-                frameborder="0" 
-                allowfullscreen="allowfullscreen"></iframe>
+    <div>
+            <iframe 
+            src="{{ h5pblock.player_id }}" 
+            class="h5p-player"
+                    width="100%" 
+                    height="600" 
+                    frameborder="0" 
+                    allowfullscreen="allowfullscreen">
+            </iframe>
     </div>
     {% if h5pblock.is_past_due %}
     <div class='h5p-warning'>
