@@ -52,7 +52,7 @@ function H5PPlayerXBlock(runtime, element, args) {
       const options = {
         h5pJsonPath: args.h5pJsonPath,
         frameJs:
-          "frame.bundle.js",
+          "/frame.bundle.js",
         frameCss:
           "https://cdn.jsdelivr.net/npm/h5p-standalone@3.7.0/dist/styles/h5p.css",
         frame: args.frame,
